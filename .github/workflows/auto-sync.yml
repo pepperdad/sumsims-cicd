@@ -26,7 +26,7 @@ jobs:
 
       - name: Add remote-url
         run: |
-          https://pepperdad:${{ secrets.FORKED_REPO_SYNC }}@github.com/pepperdad/sumsims-cicd
+          git remote add forked-repo https://pepperdad:${{ secrets.FORKED_REPO_SYNC }}@github.com/pepperdad/sumsims-cicd
           git config user.name pepperdad
           git config user.email becomegoodguy@gmail.com
 
