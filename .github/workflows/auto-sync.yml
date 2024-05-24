@@ -14,6 +14,17 @@ jobs:
         with:
           token: ${{ secrets.FORKED_REPO_SYNC }}
 
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21.4.0
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build project
+        run: yarn run build
+
       - name: Add remote URL
         run: |
           git remote add forked_repo https://pepperdad:${{ secrets.FORKED_REPO_SYNC }}@github.com/pepperdad/sumsims-cicd
