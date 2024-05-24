@@ -1,4 +1,4 @@
-name: Synchronize to forked repo
+name: Auto Sync
 on:
   push:
     branches:
@@ -6,12 +6,13 @@ on:
 
 jobs:
   sync:
-    name: Sync forked repo
+    name: Sync forked repository
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout main
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.FORKED_REPO_SYNC }}
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -24,16 +25,16 @@ jobs:
       - name: Build project
         run: yarn run build
 
-      - name: Add remote-url
+      - name: Add remote URL
         run: |
           git remote add forked-repo https://pepperdad:${{ secrets.FORKED_REPO_SYNC }}@github.com/pepperdad/sumsims-cicd
           git config user.name pepperdad
           git config user.email becomegoodguy@gmail.com
 
-      - name: Push changes to forked-repo
+      - name: Push Changes to forked_repo
         run: |
-          git push -f forked-repo main
+          git push -f forked_repo main
 
       - name: Clean up
         run: |
-          git remote remove forked-repo
+          git remote remove forked_repo
